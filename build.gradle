@@ -70,6 +70,46 @@ task esQuiz(type: JavaExec) {
   main = 'edu.csula.datascience.examples.QuizESApp'
 }
 
+task esYelpBusiness(type: JavaExec) {
+  classpath = sourceSets.main.runtimeClasspath
+
+  main = 'edu.csula.datascience.ingest.YelpBusiness'
+
+  println ("YELP_ACADEMIC_DATA_BUSINESS_PATH: " + System.getenv("YELP_ACADEMIC_DATA_BUSINESS"))
+}
+
+task esYelpCheckin(type: JavaExec) {
+  classpath = sourceSets.main.runtimeClasspath
+
+  main = 'edu.csula.datascience.ingest.YelpCheckin'
+
+  println ("YELP_ACADEMIC_DATA_CHECKIN_PATH: " + System.getenv("YELP_ACADEMIC_DATA_CHECKIN"))
+}
+
+task esYelpReview(type: JavaExec) {
+  classpath = sourceSets.main.runtimeClasspath
+
+  main = 'edu.csula.datascience.ingest.YelpReview'
+
+  println ("YELP_ACADEMIC_DATA_REVIEW_PATH: " + System.getenv("YELP_ACADEMIC_DATA_REVIEW"))
+}
+
+task esYelpTip(type: JavaExec) {
+  classpath = sourceSets.main.runtimeClasspath
+
+  main = 'edu.csula.datascience.ingest.YelpTip'
+
+  println ("YELP_ACADEMIC_DATA_TIP_PATH: " + System.getenv("YELP_ACADEMIC_DATA_TIP"))
+}
+
+task esYelpUser(type: JavaExec) {
+  classpath = sourceSets.main.runtimeClasspath
+
+  println ("YELP_ACADEMIC_DATA_USER_PATH: " + System.getenv("YELP_ACADEMIC_DATA_USER"))
+
+  main = 'edu.csula.datascience.ingest.YelpUser'
+}
+
 task wrapper(type: Wrapper) {
   gradleVersion = '2.0'
 }
