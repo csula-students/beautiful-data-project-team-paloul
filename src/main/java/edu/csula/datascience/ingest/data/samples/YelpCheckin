@@ -1,0 +1,12 @@
+{
+    'type': 'checkin',
+    'business_id': (encrypted business id),
+    'checkin_info': {
+        '0-0': (number of checkins from 00:00 to 01:00 on all Sundays),
+        '1-0': (number of checkins from 01:00 to 02:00 on all Sundays),
+        ...
+        '14-4': (number of checkins from 14:00 to 15:00 on all Thursdays),
+        ...
+        '23-6': (number of checkins from 23:00 to 00:00 on all Saturdays)
+    }, # if there was no checkin for a hour-day block it will not be in the dict
+}

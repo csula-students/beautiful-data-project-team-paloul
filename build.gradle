@@ -5,6 +5,19 @@ plugins {
   id 'com.github.johnrengelman.shadow' version '1.2.3'
 }
 
+dependencies {
+  compile 'com.google.guava:guava:19.0'
+  compile 'org.slf4j:slf4j-api:1.7.20'
+  compile 'com.mashape.unirest:unirest-java:1.4.9'
+  compile 'org.mongodb:mongodb-driver:3.2.2'
+  compile 'org.twitter4j:twitter4j-core:4.0.4'
+  compile 'org.elasticsearch:elasticsearch:2.2.0'
+  compile 'com.google.code.gson:gson:2.6.2'
+  compile 'org.apache.commons:commons-csv:1.2'
+
+  testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
 group 'csula'
 version '1.0-SNAPSHOT'
 
@@ -25,19 +38,6 @@ jar {
 shadowJar {
   baseName = 'big-data'
   version = '1.0-SNAPSHOT'
-}
-
-dependencies {
-  compile 'com.google.guava:guava:19.0'
-  compile 'org.slf4j:slf4j-api:1.7.20'
-  compile 'com.mashape.unirest:unirest-java:1.4.9'
-  compile 'org.mongodb:mongodb-driver:3.2.2'
-  compile 'org.twitter4j:twitter4j-core:4.0.4'
-  compile 'org.elasticsearch:elasticsearch:2.2.0'
-  compile 'com.google.code.gson:gson:2.6.2'
-  compile 'org.apache.commons:commons-csv:1.2'
-
-  testCompile group: 'junit', name: 'junit', version: '4.11'
 }
 
 task hello(type: JavaExec) {
@@ -75,7 +75,8 @@ task esYelpBusiness(type: JavaExec) {
 
   main = 'edu.csula.datascience.ingest.YelpBusiness'
 
-  println ("YELP_ACADEMIC_DATA_BUSINESS_PATH: " + System.getenv("YELP_ACADEMIC_DATA_BUSINESS"))
+  // YELP_ACADEMIC_DATA_BUSINESS_PATH = /Users/paloul/Desktop/DATA/Yelp/2016-AcademicDatasetChallenge_dataset/yelp_academic_dataset_business.json
+  println ("YELP_ACADEMIC_DATA_BUSINESS_PATH: " + System.getenv("YELP_ACADEMIC_DATA_BUSINESS_PATH"))
 }
 
 task esYelpCheckin(type: JavaExec) {
@@ -83,7 +84,8 @@ task esYelpCheckin(type: JavaExec) {
 
   main = 'edu.csula.datascience.ingest.YelpCheckin'
 
-  println ("YELP_ACADEMIC_DATA_CHECKIN_PATH: " + System.getenv("YELP_ACADEMIC_DATA_CHECKIN"))
+  // YELP_ACADEMIC_DATA_CHECKIN_PATH = /Users/paloul/Desktop/DATA/Yelp/2016-AcademicDatasetChallenge_dataset/yelp_academic_dataset_checkin.json
+  println ("YELP_ACADEMIC_DATA_CHECKIN_PATH: " + System.getenv("YELP_ACADEMIC_DATA_CHECKIN_PATH"))
 }
 
 task esYelpReview(type: JavaExec) {
@@ -91,7 +93,8 @@ task esYelpReview(type: JavaExec) {
 
   main = 'edu.csula.datascience.ingest.YelpReview'
 
-  println ("YELP_ACADEMIC_DATA_REVIEW_PATH: " + System.getenv("YELP_ACADEMIC_DATA_REVIEW"))
+  // YELP_ACADEMIC_DATA_REVIEW_PATH = /Users/paloul/Desktop/DATA/Yelp/2016-AcademicDatasetChallenge_dataset/yelp_academic_dataset_review.json
+  println ("YELP_ACADEMIC_DATA_REVIEW_PATH: " + System.getenv("YELP_ACADEMIC_DATA_REVIEW_PATH"))
 }
 
 task esYelpTip(type: JavaExec) {
@@ -99,15 +102,17 @@ task esYelpTip(type: JavaExec) {
 
   main = 'edu.csula.datascience.ingest.YelpTip'
 
-  println ("YELP_ACADEMIC_DATA_TIP_PATH: " + System.getenv("YELP_ACADEMIC_DATA_TIP"))
+  // YELP_ACADEMIC_DATA_TIP_PATH = /Users/paloul/Desktop/DATA/Yelp/2016-AcademicDatasetChallenge_dataset/yelp_academic_dataset_tip.json
+  println ("YELP_ACADEMIC_DATA_TIP_PATH: " + System.getenv("YELP_ACADEMIC_DATA_TIP_PATH"))
 }
 
 task esYelpUser(type: JavaExec) {
   classpath = sourceSets.main.runtimeClasspath
 
-  println ("YELP_ACADEMIC_DATA_USER_PATH: " + System.getenv("YELP_ACADEMIC_DATA_USER"))
-
   main = 'edu.csula.datascience.ingest.YelpUser'
+
+  // YELP_ACADEMIC_DATA_USER_PATH = /Users/paloul/Desktop/DATA/Yelp/2016-AcademicDatasetChallenge_dataset/yelp_academic_dataset_user.json
+  println ("YELP_ACADEMIC_DATA_USER_PATH: " + System.getenv("YELP_ACADEMIC_DATA_USER_PATH"))
 }
 
 task wrapper(type: Wrapper) {
