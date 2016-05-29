@@ -1,0 +1,8 @@
+{
+    'type': 'tip',
+    'text': (tip text),
+    'business_id': (encrypted business id),
+    'user_id': (encrypted user id),
+    'date': (date, formatted like '2012-03-14'),
+    'likes': (count),
+}
