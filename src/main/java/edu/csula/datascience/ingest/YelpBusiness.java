@@ -29,6 +29,7 @@ import static org.elasticsearch.node.NodeBuilder.nodeBuilder;
  */
 public class YelpBusiness extends ElasticSearchIngest {
 
+    private final String pathHome = "elasticsearch_data";
     private final String clusterName = "elasticsearch_paloul";
     private final String indexName = "yelp-academic";
     private final String typeName = "business";
@@ -45,7 +46,7 @@ public class YelpBusiness extends ElasticSearchIngest {
         // Create ES interaction objects
         Node node = nodeBuilder().settings(Settings.builder()
                 .put("cluster.name", clusterName)
-                .put("path.home", "elasticsearch-data")).node();
+                .put("path.home", pathHome)).node();
         Client client = node.client();
 
         // Turn path string into java File, and check if exists
@@ -69,18 +70,15 @@ public class YelpBusiness extends ElasticSearchIngest {
                 JsonObject business = gson.fromJson(line, JsonObject.class); // Convert json from file to business json obj
                 business.addProperty("created", dateFormat.format(new Date())); // Add a timestamp to business json obj
 
-                JsonObject location = new JsonObject();
-                location.addProperty("lat", business.get("latitude").getAsLong());
-                location.addProperty("lon", business.get("longitude").getAsLong());
-
-                business.add("location", location);
-
                 //System.out.println(business.toString());
 
                 // Add to es bulkprocessor
                 bulkProcessor.add(new IndexRequest(indexName, typeName).source(gson.toJson(business)));
             }
         }
+
+        client.close();
+        node.close();
     }
 
     public static void main(String[] args) {
