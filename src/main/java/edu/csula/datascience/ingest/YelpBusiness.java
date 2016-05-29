@@ -68,18 +68,56 @@ public class YelpBusiness extends ElasticSearchIngest {
             for(String line; (line = br.readLine()) != null; ) {
 
                 JsonObject business = gson.fromJson(line, JsonObject.class); // Convert json from file to business json obj
-                business.addProperty("created", dateFormat.format(new Date())); // Add a timestamp to business json obj
+                //business.addProperty("date", dateFormat.format(new Date())); // Add a timestamp to business json obj
 
                 //System.out.println(business.toString());
+                Business biz = new Business(
+                        business.get("type").getAsString(),
+                        business.get("business_id").getAsString(),
+                        business.get("name").getAsString(),
+                        business.get("city").getAsString(),
+                        business.get("state").getAsString(),
+                        business.get("stars").getAsDouble(),
+                        business.get("review_count").getAsInt()
+                );
 
                 // Add to es bulkprocessor
-                bulkProcessor.add(new IndexRequest(indexName, typeName).source(gson.toJson(business)));
+                bulkProcessor.add(new IndexRequest(indexName, typeName).source(gson.toJson(biz)));
             }
         }
 
         client.close();
         node.close();
     }
+
+    static class Business {
+        final String type;
+        final String businessId;
+        final String businessName;
+        final String city;
+        final String state;
+        final double stars;
+        final int reviewCount;
+
+        public Business(
+                String type,
+                String businessId,
+                String businessName,
+                String city,
+                String state,
+                double stars,
+                int reviewCount) {
+
+            this.type = type;
+            this.businessId = businessId;
+            this.businessName = businessName;
+            this.city = city;
+            this.state = state;
+            this.stars = stars;
+            this.reviewCount = reviewCount;
+        }
+    }
+
 
     public static void main(String[] args) {
         YelpBusiness yelpBusiness = new YelpBusiness();

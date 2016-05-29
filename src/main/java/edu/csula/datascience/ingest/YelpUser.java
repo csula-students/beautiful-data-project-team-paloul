@@ -12,6 +12,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static org.elasticsearch.node.NodeBuilder.nodeBuilder;
 
@@ -51,20 +54,69 @@ public class YelpUser extends ElasticSearchIngest {
         // Gson library for sending json to elastic search
         Gson gson = new Gson();
 
-        // User json object in data files have a date field, named
-        // yelping_since, which gives when they were added to yelp
-        // We can use that as a timestamp
+        SimpleDateFormat dateFormatParser = new SimpleDateFormat("yyyy-MM");
+        SimpleDateFormat dateFormatConverter = new SimpleDateFormat("yyyy-MM-dd");
 
         try(BufferedReader br = new BufferedReader(new FileReader(tipFile))) {
             for(String line; (line = br.readLine()) != null; ) {
 
                 JsonObject user = gson.fromJson(line, JsonObject.class); // Convert json from file to business json obj
 
+                //System.out.println(user.get("yelping_since").getAsString());
+
+                String yelping_since = user.get("yelping_since").getAsString();
+                Date date = dateFormatParser.parse(yelping_since);
+
                 //System.out.println(user.toString());
+                User u = new User(
+                        user.get("type").getAsString(),
+                        user.get("user_id").getAsString(),
+                        user.get("name").getAsString(),
+                        user.get("review_count").getAsInt(),
+                        user.get("average_stars").getAsDouble(),
+                        user.get("friends").getAsJsonArray().size(),
+                        user.get("fans").getAsInt(),
+                        user.get("elite").getAsJsonArray().size() > 0,
+                        dateFormatConverter.format(date)
+                );
 
                 // Add to es bulkprocessor
-                bulkProcessor.add(new IndexRequest(indexName, typeName).source(gson.toJson(user)));
+                bulkProcessor.add(new IndexRequest(indexName, typeName).source(gson.toJson(u)));
             }
+        }
+    }
+
+    static class User {
+        private final String type;
+        private final String userId;
+        private final String name;
+        private final int reviewCount;
+        private final double averageStars;
+        private final int numberFriends;
+        private final int numberFans;
+        private final Boolean isElite;
+        private final String date;
+
+        public User(
+                String type,
+                String userId,
+                String name,
+                int reviewCount,
+                double averageStars,
+                int numberFriends,
+                int numberFans,
+                Boolean isElite,
+                String date) {
+
+            this.type = type;
+            this.userId = userId;
+            this.name = name;
+            this.reviewCount = reviewCount;
+            this.averageStars = averageStars;
+            this.numberFriends = numberFriends;
+            this.numberFans = numberFans;
+            this.isElite = isElite;
+            this.date = date;
         }
     }
 
