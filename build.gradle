@@ -77,48 +77,48 @@ task remoteEs(type: JavaExec) {
   main = 'edu.csula.datascience.examples.JestExampleApp'
 }
 
-task esYelpBusiness(type: JavaExec) {
+task esRemoteYelpBusiness(type: JavaExec) {
   classpath = sourceSets.main.runtimeClasspath
 
-  main = 'edu.csula.datascience.ingest.YelpBusiness'
+  main = 'edu.csula.datascience.ingest.JestYelpBusiness'
 
-  // YELP_ACADEMIC_DATA_BUSINESS_PATH = /Users/paloul/Desktop/DATA/Yelp/2016-AcademicDatasetChallenge_dataset/yelp_academic_dataset_business.json
+  // YELP_ACADEMIC_DATA_BUSINESS_PATH=/Users/paloul/Desktop/DATA/Yelp/2016-AcademicDatasetChallenge_dataset/yelp_academic_dataset_business.json
   println ("YELP_ACADEMIC_DATA_BUSINESS_PATH: " + System.getenv("YELP_ACADEMIC_DATA_BUSINESS_PATH"))
 }
 
-task esYelpCheckin(type: JavaExec) {
+task esRemoteYelpCheckin(type: JavaExec) {
   classpath = sourceSets.main.runtimeClasspath
 
-  main = 'edu.csula.datascience.ingest.YelpCheckin'
+  main = 'edu.csula.datascience.ingest.JestYelpCheckin'
 
-  // YELP_ACADEMIC_DATA_CHECKIN_PATH = /Users/paloul/Desktop/DATA/Yelp/2016-AcademicDatasetChallenge_dataset/yelp_academic_dataset_checkin.json
+  // YELP_ACADEMIC_DATA_CHECKIN_PATH=/Users/paloul/Desktop/DATA/Yelp/2016-AcademicDatasetChallenge_dataset/yelp_academic_dataset_checkin.json
   println ("YELP_ACADEMIC_DATA_CHECKIN_PATH: " + System.getenv("YELP_ACADEMIC_DATA_CHECKIN_PATH"))
 }
 
-task esYelpReview(type: JavaExec) {
+task esRemoteYelpReview(type: JavaExec) {
   classpath = sourceSets.main.runtimeClasspath
 
-  main = 'edu.csula.datascience.ingest.YelpReview'
+  main = 'edu.csula.datascience.ingest.JestYelpReview'
 
-  // YELP_ACADEMIC_DATA_REVIEW_PATH = /Users/paloul/Desktop/DATA/Yelp/2016-AcademicDatasetChallenge_dataset/yelp_academic_dataset_review.json
+  // YELP_ACADEMIC_DATA_REVIEW_PATH=/Users/paloul/Desktop/DATA/Yelp/2016-AcademicDatasetChallenge_dataset/yelp_academic_dataset_review.json
   println ("YELP_ACADEMIC_DATA_REVIEW_PATH: " + System.getenv("YELP_ACADEMIC_DATA_REVIEW_PATH"))
 }
 
-task esYelpTip(type: JavaExec) {
+task esRemoteYelpTip(type: JavaExec) {
   classpath = sourceSets.main.runtimeClasspath
 
-  main = 'edu.csula.datascience.ingest.YelpTip'
+  main = 'edu.csula.datascience.ingest.JestYelpTip'
 
-  // YELP_ACADEMIC_DATA_TIP_PATH = /Users/paloul/Desktop/DATA/Yelp/2016-AcademicDatasetChallenge_dataset/yelp_academic_dataset_tip.json
+  // YELP_ACADEMIC_DATA_TIP_PATH=/Users/paloul/Desktop/DATA/Yelp/2016-AcademicDatasetChallenge_dataset/yelp_academic_dataset_tip.json
   println ("YELP_ACADEMIC_DATA_TIP_PATH: " + System.getenv("YELP_ACADEMIC_DATA_TIP_PATH"))
 }
 
-task esYelpUser(type: JavaExec) {
+task esRemoteYelpUser(type: JavaExec) {
   classpath = sourceSets.main.runtimeClasspath
 
-  main = 'edu.csula.datascience.ingest.YelpUser'
+  main = 'edu.csula.datascience.ingest.JestYelpUser'
 
-  // YELP_ACADEMIC_DATA_USER_PATH = /Users/paloul/Desktop/DATA/Yelp/2016-AcademicDatasetChallenge_dataset/yelp_academic_dataset_user.json
+  // YELP_ACADEMIC_DATA_USER_PATH=/Users/paloul/Desktop/DATA/Yelp/2016-AcademicDatasetChallenge_dataset/yelp_academic_dataset_user.json
   println ("YELP_ACADEMIC_DATA_USER_PATH: " + System.getenv("YELP_ACADEMIC_DATA_USER_PATH"))
 }
 

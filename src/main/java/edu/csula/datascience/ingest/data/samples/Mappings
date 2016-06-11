@@ -1,0 +1,127 @@
+{
+    "mappings": {
+      "user": {
+        "properties": {
+          "averageStars": {
+            "type": "double"
+          },
+          "date": {
+            "type": "date"
+          },
+          "isElite": {
+            "type": "boolean"
+          },
+          "name": {
+            "type": "string"
+          },
+          "numberFans": {
+            "type": "long"
+          },
+          "numberFriends": {
+            "type": "long"
+          },
+          "reviewCount": {
+            "type": "long"
+          },
+          "type": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "string",
+            "index": "not_analyzed"
+          }
+        }
+      },
+      "business": {
+        "properties": {
+          "businessId": {
+            "type": "string",
+            "index": "not_analyzed"
+          },
+          "businessName": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "reviewCount": {
+            "type": "long"
+          },
+          "stars": {
+            "type": "double"
+          },
+          "state": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "tip": {
+        "properties": {
+          "business_id": {
+            "type": "string",
+            "index": "not_analyzed"
+          },
+          "date": {
+            "type": "date"
+          },
+          "likes": {
+            "type": "long"
+          },
+          "text": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "user_id": {
+            "type": "string",
+            "index": "not_analyzed"
+          }
+        }
+      },
+      "review": {
+        "properties": {
+          "business_id": {
+            "type": "string",
+            "index": "not_analyzed"
+          },
+          "date": {
+            "type": "date"
+          },
+          "review_id": {
+            "type": "string",
+            "index": "not_analyzed"
+          },
+          "stars": {
+            "type": "double"
+          },
+          "text": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "user_id": {
+            "type": "string",
+            "index": "not_analyzed"
+          },
+          "votes": {
+            "properties": {
+              "cool": {
+                "type": "long"
+              },
+              "funny": {
+                "type": "long"
+              },
+              "useful": {
+                "type": "long"
+              }
+            }
+          }
+        }
+      }
+    }
+  }

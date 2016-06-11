@@ -1,0 +1,9 @@
+{
+    'type': 'review',
+    'business_id': (encrypted business id),
+    'user_id': (encrypted user id),
+    'stars': (star rating, rounded to half-stars),
+    'text': (review text),
+    'date': (date, formatted like '2012-03-14'),
+    'votes': {(vote type): (count)},
+}
