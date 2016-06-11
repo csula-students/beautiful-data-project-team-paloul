@@ -77,6 +77,51 @@ task remoteEs(type: JavaExec) {
   main = 'edu.csula.datascience.examples.JestExampleApp'
 }
 
+task esYelpBusiness(type: JavaExec) {
+  classpath = sourceSets.main.runtimeClasspath
+
+  main = 'edu.csula.datascience.ingest.YelpBusiness'
+
+  // YELP_ACADEMIC_DATA_BUSINESS_PATH = /Users/paloul/Desktop/DATA/Yelp/2016-AcademicDatasetChallenge_dataset/yelp_academic_dataset_business.json
+  println ("YELP_ACADEMIC_DATA_BUSINESS_PATH: " + System.getenv("YELP_ACADEMIC_DATA_BUSINESS_PATH"))
+}
+
+task esYelpCheckin(type: JavaExec) {
+  classpath = sourceSets.main.runtimeClasspath
+
+  main = 'edu.csula.datascience.ingest.YelpCheckin'
+
+  // YELP_ACADEMIC_DATA_CHECKIN_PATH = /Users/paloul/Desktop/DATA/Yelp/2016-AcademicDatasetChallenge_dataset/yelp_academic_dataset_checkin.json
+  println ("YELP_ACADEMIC_DATA_CHECKIN_PATH: " + System.getenv("YELP_ACADEMIC_DATA_CHECKIN_PATH"))
+}
+
+task esYelpReview(type: JavaExec) {
+  classpath = sourceSets.main.runtimeClasspath
+
+  main = 'edu.csula.datascience.ingest.YelpReview'
+
+  // YELP_ACADEMIC_DATA_REVIEW_PATH = /Users/paloul/Desktop/DATA/Yelp/2016-AcademicDatasetChallenge_dataset/yelp_academic_dataset_review.json
+  println ("YELP_ACADEMIC_DATA_REVIEW_PATH: " + System.getenv("YELP_ACADEMIC_DATA_REVIEW_PATH"))
+}
+
+task esYelpTip(type: JavaExec) {
+  classpath = sourceSets.main.runtimeClasspath
+
+  main = 'edu.csula.datascience.ingest.YelpTip'
+
+  // YELP_ACADEMIC_DATA_TIP_PATH = /Users/paloul/Desktop/DATA/Yelp/2016-AcademicDatasetChallenge_dataset/yelp_academic_dataset_tip.json
+  println ("YELP_ACADEMIC_DATA_TIP_PATH: " + System.getenv("YELP_ACADEMIC_DATA_TIP_PATH"))
+}
+
+task esYelpUser(type: JavaExec) {
+  classpath = sourceSets.main.runtimeClasspath
+
+  main = 'edu.csula.datascience.ingest.YelpUser'
+
+  // YELP_ACADEMIC_DATA_USER_PATH = /Users/paloul/Desktop/DATA/Yelp/2016-AcademicDatasetChallenge_dataset/yelp_academic_dataset_user.json
+  println ("YELP_ACADEMIC_DATA_USER_PATH: " + System.getenv("YELP_ACADEMIC_DATA_USER_PATH"))
+}
+
 task wrapper(type: Wrapper) {
   gradleVersion = '2.0'
 }

@@ -92,10 +92,12 @@ public class JestExampleApp {
             }
 
             Collection<BulkableAction> actions = Lists.newArrayList();
+
             temperatures.stream()
                 .forEach(tmp -> {
                     actions.add(new Index.Builder(tmp).build());
                 });
+
             Bulk.Builder bulk = new Bulk.Builder()
                 .defaultIndex(indexName)
                 .defaultType(typeName)
