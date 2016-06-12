@@ -108,6 +108,9 @@
             "type": "string",
             "index": "not_analyzed"
           },
+          "is_user_elite": {
+            "type": "boolean"
+          },
           "votes": {
             "properties": {
               "cool": {

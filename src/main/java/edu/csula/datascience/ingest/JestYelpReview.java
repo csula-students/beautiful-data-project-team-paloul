@@ -18,11 +18,14 @@ import java.net.URISyntaxException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Dictionary;
+import java.util.Hashtable;
 
 /**
  * Created by paloul on 6/10/16 for data-science
  */
 public class JestYelpReview {
+    private static String yelpUserFilePath;
     private static String yelpReviewFilePath;
 
     public static void main(String[] args) throws URISyntaxException, IOException {
@@ -40,12 +43,20 @@ public class JestYelpReview {
         if (path != null) yelpReviewFilePath = path;
         else yelpReviewFilePath = "";
 
+        String pathUser = System.getenv("YELP_ACADEMIC_DATA_USER_PATH");
+        if (pathUser != null) yelpUserFilePath = pathUser;
+        else yelpUserFilePath = "";
+
         // as usual process to connect to data source, we will need to set up
         // node and client// to read CSV file from the resource folder
         // Turn path string into java File, and check if exists
         File reviewFile = new File(yelpReviewFilePath);
         if (!reviewFile.exists()) {
             throw new IOException("File Not Found - " + yelpReviewFilePath);
+        }
+        File userFile = new File(yelpUserFilePath);
+        if (!userFile.exists()) {
+            throw new IOException("File Not Found - " + yelpUserFilePath);
         }
 
         // Gson library for sending json to elastic search
@@ -54,16 +65,36 @@ public class JestYelpReview {
         // into the ES index. Business object does not have timestamp field
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
+        // Read the user file and create a dictionary holding all users and
+        // determining if they are elite or not
+        Hashtable<String, Boolean> isUserEliteMap = new Hashtable<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(userFile))) {
+            for(String line; (line = br.readLine()) != null; ) {
+
+                JsonObject userJson = gson.fromJson(line, JsonObject.class); // Convert json from file to business json obj
+
+                String userId = userJson.get("user_id").getAsString();
+                Boolean isElite = userJson.get("elite").getAsJsonArray().size() > 0;
+
+                isUserEliteMap.put(userId, isElite);
+            }
+        }
+
         int reviewBufferCount = 0;
         Collection<JsonObject> reviews = Lists.newArrayList();
 
         try(BufferedReader br = new BufferedReader(new FileReader(reviewFile))) {
             for(String line; (line = br.readLine()) != null; ) {
 
-                JsonObject jsonCheckin = gson.fromJson(line, JsonObject.class); // Convert json from file to business json obj
+                JsonObject jsonReview = gson.fromJson(line, JsonObject.class); // Convert json from file to business json obj
+
+                String userId = jsonReview.get("user_id").getAsString();
+                if (isUserEliteMap.contains(userId)) {
+                    jsonReview.addProperty("is_user_elite", isUserEliteMap.get(userId));
+                }
 
                 if (reviewBufferCount < 500) {
-                    reviews.add(jsonCheckin);
+                    reviews.add(jsonReview);
                     reviewBufferCount++;
                 } else {
                     try {
