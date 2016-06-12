@@ -119,7 +119,7 @@ public class JestYelpUser {
                         .addAction(actions);
                 client.execute(bulk.build());
 
-                System.out.println("Done inserting Businesses to Cloud");
+                System.out.println("Done inserting Users to Cloud");
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -74,7 +74,7 @@ public class JestYelpReview {
                 JsonObject userJson = gson.fromJson(line, JsonObject.class); // Convert json from file to business json obj
 
                 String userId = userJson.get("user_id").getAsString();
-                Boolean isElite = userJson.get("elite").getAsJsonArray().size() > 0;
+                boolean isElite = userJson.get("elite").getAsJsonArray().size() > 0;
 
                 isUserEliteMap.put(userId, isElite);
             }
@@ -89,8 +89,9 @@ public class JestYelpReview {
                 JsonObject jsonReview = gson.fromJson(line, JsonObject.class); // Convert json from file to business json obj
 
                 String userId = jsonReview.get("user_id").getAsString();
-                if (isUserEliteMap.contains(userId)) {
-                    jsonReview.addProperty("is_user_elite", isUserEliteMap.get(userId));
+                Boolean isElite = isUserEliteMap.get(userId);
+                if (isElite != null) {
+                    jsonReview.addProperty("is_user_elite", isElite);
                 }
 
                 if (reviewBufferCount < 500) {
